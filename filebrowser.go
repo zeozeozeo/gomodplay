@@ -16,6 +16,7 @@ import (
 
 var fileStyle = tcell.StyleDefault.Background(sampleBgColour).Foreground(sampleFgColour)
 var fileHighlightStyle = tcell.StyleDefault.Background(sampleHighlightBgColour).Foreground(sampleHighlightFgColour).Bold(true)
+var modRegexp = regexp.MustCompile("(?i).mod")
 
 type file struct {
 	name       string
@@ -52,7 +53,7 @@ func parseDir(path string) ([]file, error) {
 			continue
 		}
 		name := f.Name()
-		matched, _ := regexp.MatchString("(?i).mod", name)
+		matched := modRegexp.MatchString(name)
 		if matched && name != "go.mod" {
 			mod := file{
 				name:  name,
@@ -158,7 +159,7 @@ func load() *os.File {
 							if err == nil {
 								defer f.Close()
 								player := mod.NewModPlayer(48000)
-								err = player.LoadModFile(f)
+								player.LoadModFile(f)
 								name := player.Song.Name
 								currentState.entries[idx].moduleName = &name
 

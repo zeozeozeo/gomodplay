@@ -31,7 +31,8 @@ var boxBgColour = tcell.GetColor("#282a36")
 var boxFgColour = tcell.GetColor("#526A9E")
 
 var meterColour1 = tcell.GetColor("#E1FA8C")
-var meterColour2 = tcell.GetColor("#50FA7B")
+
+// var meterColour2 = tcell.GetColor("#50FA7B")
 
 var songStyle = tcell.StyleDefault.Background(backgroundColour).Bold(true).Foreground(songColour)
 var sampleStyle = tcell.StyleDefault.Background(sampleBgColour).Foreground(sampleFgColour)

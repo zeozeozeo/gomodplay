@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
 )
 
 // Standard controls NTSC/PAL vBlank timing
@@ -39,7 +38,7 @@ func NewModPlayer(sampleRate uint32) *Player {
 }
 
 // LoadModFile parses the mod file into the player
-func (p *Player) LoadModFile(f *os.File) error {
+func (p *Player) LoadModFile(f io.Reader) error {
 	mod, err := io.ReadAll(f)
 	if err != nil {
 		return err
@@ -162,7 +161,7 @@ func (p *Player) Stream(samples [][2]float32) (n int, ok bool) {
 // Play begins audio playback
 func (p *Player) Play() error {
 	if !p.SongLoaded {
-		return errors.New("No song loaded")
+		return errors.New("no song loaded")
 	}
 	p.SongPlaying = true
 	return nil
