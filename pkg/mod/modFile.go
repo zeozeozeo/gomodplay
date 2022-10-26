@@ -43,22 +43,22 @@ func (p *Player) playNote(note Note, channelNum uint) {
 }
 
 func (p *Player) playLine() {
-	if p.State.nextPatternPosition != -1 {
+	if p.State.NextPatternPosition != -1 {
 		p.State.SongPatternPosition++
-		p.State.CurrentLine = uint32(p.State.nextPatternPosition)
-		p.State.nextPatternPosition = -1
-	} else if p.State.nextPosition != -1 {
-		p.State.SongPatternPosition = uint32(p.State.nextPosition)
+		p.State.CurrentLine = uint32(p.State.NextPatternPosition)
+		p.State.NextPatternPosition = -1
+	} else if p.State.NextPosition != -1 {
+		p.State.SongPatternPosition = uint32(p.State.NextPosition)
 		p.State.CurrentLine = 0
-		p.State.nextPosition = -1
+		p.State.NextPosition = -1
 	}
 
 	if p.State.SongPatternPosition >= p.Song.NumUsedPatterns {
 		if p.Song.endPosition < p.Song.NumUsedPatterns {
 			p.State.SongPatternPosition = p.Song.endPosition
-			p.State.hasLooped = true
+			p.State.HasLooped = true
 		} else {
-			p.State.songHasEnded = true
+			p.State.SongHasEnded = true
 		}
 	}
 
@@ -68,15 +68,15 @@ func (p *Player) playLine() {
 		p.playNote(note, uint(channelNum))
 	}
 
-	if p.State.setPatternPosition && p.State.patternLoopPosition != nil {
-		p.State.setPatternPosition = false
-		p.State.CurrentLine = *p.State.patternLoopPosition
+	if p.State.SetPatternPosition && p.State.PatternLoopPosition != nil {
+		p.State.SetPatternPosition = false
+		p.State.CurrentLine = *p.State.PatternLoopPosition
 	} else {
 		p.State.CurrentLine++
 		if p.State.CurrentLine >= 64 {
 			p.State.SongPatternPosition++
 			if p.State.SongPatternPosition >= p.Song.NumUsedPatterns {
-				p.State.songHasEnded = true
+				p.State.SongHasEnded = true
 			}
 			p.State.CurrentLine = 0
 		}
@@ -88,23 +88,23 @@ func (p *Player) nextSample() (left float32, right float32) {
 		return
 	}
 
-	if p.State.currentVBlankSample >= p.State.samplesPerVBlank {
-		p.State.currentVBlankSample = 0
+	if p.State.CurrentVBlankSample >= p.State.SamplesPerVBlank {
+		p.State.CurrentVBlankSample = 0
 
 		p.updateEffects()
 
-		if p.State.currentVBlank >= p.State.songSpeed {
-			if p.State.delayLine > 0 {
-				p.State.delayLine--
+		if p.State.CurrentVBlank >= p.State.SongSpeed {
+			if p.State.DelayLine > 0 {
+				p.State.DelayLine--
 			} else {
-				p.State.currentVBlank = 0
+				p.State.CurrentVBlank = 0
 				p.playLine()
 
 			}
 		}
-		p.State.currentVBlank++
+		p.State.CurrentVBlank++
 	}
-	p.State.currentVBlankSample++
+	p.State.CurrentVBlankSample++
 
 	for channelNum := range p.State.Channels {
 		channel := p.State.Channels[channelNum]

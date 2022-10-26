@@ -50,7 +50,7 @@ func parseFormat(format []byte) FormatDescription {
 		fd.NumChannels = 8
 		fd.NumSamples = 31
 	case "CD61":
-		panic(fmt.Errorf("Unhandled mod format %s", string(format)))
+		panic(fmt.Errorf("unhandled mod format %s", string(format)))
 	default:
 		//fmt.Printf("Unknown format code %s\n", string(format))
 		fd.Tag = ""

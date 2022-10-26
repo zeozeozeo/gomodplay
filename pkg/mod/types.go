@@ -78,19 +78,18 @@ type PlayerState struct {
 	CurrentLine               uint32
 	SongPatternPosition       uint32
 	clockTicksPerDeviceSample float32
-	currentVBlank             uint32
-	currentVBlankSample       uint32
-	delayLine                 uint32
-	deviceSampleRate          uint32
-	hasLooped                 bool
-	nextPatternPosition       int32
-	nextPosition              int32
-	patternLoop               int32
-	patternLoopPosition       *uint32
-	samplesPerVBlank          uint32
-	setPatternPosition        bool
-	songHasEnded              bool
-	songSpeed                 uint32
+	CurrentVBlank             uint32
+	CurrentVBlankSample       uint32
+	DelayLine                 uint32
+	HasLooped                 bool
+	NextPatternPosition       int32
+	NextPosition              int32
+	PatternLoop               int32
+	PatternLoopPosition       *uint32
+	SamplesPerVBlank          uint32
+	SetPatternPosition        bool
+	SongHasEnded              bool
+	SongSpeed                 uint32
 	leftChannel               float32
 	rightChannel              float32
 }

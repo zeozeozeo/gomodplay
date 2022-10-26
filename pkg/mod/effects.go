@@ -146,18 +146,18 @@ func (p *Player) generateEffect(note *Note, channelNum uint, oldValues *ChannelI
 	case 11:
 		//position jump
 		if uint32(note.EffectArgument) <= p.State.SongPatternPosition {
-			p.State.hasLooped = true
+			p.State.HasLooped = true
 		}
-		p.State.nextPosition = int32(note.EffectArgument)
+		p.State.NextPosition = int32(note.EffectArgument)
 	case 12:
 		// Set Volume
 		channel.volume = float32(note.EffectArgument)
 	case 13:
 		// Pattern Break
 		nextPatternPos := uint8(((0xf0 & uint32(note.EffectArgument) >> 4) * 10) + (uint32(note.EffectArgument) & 0x0f))
-		p.State.nextPatternPosition = int32(nextPatternPos)
-		if p.State.nextPatternPosition > 63 {
-			p.State.nextPatternPosition = 0
+		p.State.NextPatternPosition = int32(nextPatternPos)
+		if p.State.NextPatternPosition > 63 {
+			p.State.NextPatternPosition = 0
 		}
 	case 14:
 		extEffect := note.EffectArgument >> 4
@@ -181,18 +181,18 @@ func (p *Player) generateEffect(note *Note, channelNum uint, oldValues *ChannelI
 		case 6:
 			// patternloop
 			if extArgument == 0 {
-				p.State.patternLoopPosition = &p.State.CurrentLine
+				p.State.PatternLoopPosition = &p.State.CurrentLine
 			} else {
-				if p.State.patternLoop == 0 {
-					p.State.patternLoop = int32(extArgument)
+				if p.State.PatternLoop == 0 {
+					p.State.PatternLoop = int32(extArgument)
 				} else {
-					p.State.patternLoop--
+					p.State.PatternLoop--
 				}
 
-				if p.State.patternLoop > 0 && p.State.patternLoopPosition != nil {
-					p.State.setPatternPosition = true
+				if p.State.PatternLoop > 0 && p.State.PatternLoopPosition != nil {
+					p.State.SetPatternPosition = true
 				} else {
-					p.State.patternLoopPosition = nil
+					p.State.PatternLoopPosition = nil
 				}
 			}
 		case 7:
@@ -224,7 +224,7 @@ func (p *Player) generateEffect(note *Note, channelNum uint, oldValues *ChannelI
 			//delayedsample
 		case 14:
 			//delayedrow
-			p.State.delayLine = uint32(extArgument)
+			p.State.DelayLine = uint32(extArgument)
 		case 15:
 			//invertloop
 		default:
@@ -233,10 +233,10 @@ func (p *Player) generateEffect(note *Note, channelNum uint, oldValues *ChannelI
 	case 15:
 		// Set Speed
 		if note.EffectArgument <= 31 {
-			p.State.songSpeed = uint32(note.EffectArgument)
+			p.State.SongSpeed = uint32(note.EffectArgument)
 		} else {
 			vBlanksPerSec := float32(note.EffectArgument) * 0.4
-			p.State.samplesPerVBlank = uint32(float32(p.SampleRate) / vBlanksPerSec)
+			p.State.SamplesPerVBlank = uint32(float32(p.SampleRate) / vBlanksPerSec)
 		}
 	default:
 		fmt.Printf("Unhandled effect %x\n", note.Effect)

@@ -116,10 +116,10 @@ func (p *Player) LoadModFile(f io.Reader) error {
 	}
 	ps := PlayerState{
 		Channels:                  channels,
-		songSpeed:                 6,
-		nextPatternPosition:       -1,
-		nextPosition:              -1,
-		samplesPerVBlank:          p.SampleRate / 50,
+		SongSpeed:                 6,
+		NextPatternPosition:       -1,
+		NextPosition:              -1,
+		SamplesPerVBlank:          p.SampleRate / 50,
 		clockTicksPerDeviceSample: float32(clockTicksPerSecond[p.Standard]) / float32(p.SampleRate),
 	}
 	s := Song{
@@ -147,7 +147,7 @@ func (p *Player) Err() error {
 
 // Stream sends samples
 func (p *Player) Stream(samples [][2]float32) (n int, ok bool) {
-	if p.State.songHasEnded {
+	if p.State.SongHasEnded {
 		return 0, false
 	}
 	for idx := range samples {
