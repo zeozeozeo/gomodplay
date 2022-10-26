@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/benwiggins/gomodplay/pkg/mod"
-	"github.com/benwiggins/gomodplay/pkg/speaker"
 	"github.com/gdamore/tcell/v2"
+	"github.com/zeozeozeo/gomodplay/pkg/mod"
+	"github.com/zeozeozeo/gomodplay/pkg/speaker"
 )
 
 var backgroundColour = tcell.GetColor("#282a36")

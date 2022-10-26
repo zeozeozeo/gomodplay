@@ -1,4 +1,4 @@
-module github.com/benwiggins/gomodplay
+module github.com/zeozeozeo/gomodplay
 
 go 1.16
 

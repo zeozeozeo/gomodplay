@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/benwiggins/gomodplay/pkg/mod"
+	"github.com/zeozeozeo/gomodplay/pkg/mod"
 
 	"github.com/gdamore/tcell/v2"
 )
