@@ -151,7 +151,7 @@ func (p *Player) Stream(samples [][2]float32) (n int, ok bool) {
 		return 0, false
 	}
 	for idx := range samples {
-		left, right := p.nextSample()
+		left, right := p.NextSample()
 		samples[idx][0] = left
 		samples[idx][1] = right
 	}

@@ -83,7 +83,7 @@ func (p *Player) playLine() {
 	}
 }
 
-func (p *Player) nextSample() (left float32, right float32) {
+func (p *Player) NextSample() (left float32, right float32) {
 	if !(p.SongLoaded && p.SongPlaying) {
 		return
 	}
